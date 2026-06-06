@@ -1,14 +1,15 @@
-name: Deploy to Cloudflare Pages
+# 备用方案：Cloudflare 原生 Git 集成已启用时，推送会自动由 Cloudflare 构建部署。
+# 若 Git 集成不可用，可取消注释下方 jobs 并配置 GitHub Secrets：
+#   CLOUDFLARE_API_TOKEN、CLOUDFLARE_ACCOUNT_ID（yiyi.dd22@gmail.com 账号）
+
+name: Deploy to Cloudflare Pages (fallback)
 
 on:
-  push:
-    branches:
-      - master
-      - main
   workflow_dispatch:
 
 jobs:
   deploy:
+    if: false
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -28,5 +29,5 @@ jobs:
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: 2c43c7dcb62ade5f6f6212ee783cb371
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           command: pages deploy out --project-name=gaoyuanhaugong

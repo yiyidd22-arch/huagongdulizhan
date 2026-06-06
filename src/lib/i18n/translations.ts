@@ -198,6 +198,9 @@ const en = {
     subtitle: "Latest company news and industry updates",
     footer: "For more information, please",
     contactLink: "contact us",
+    loading: "Loading news...",
+    empty: "No news articles yet.",
+    notFound: "Article not found.",
     items: [
       {
         date: "2024-03-15",
@@ -443,6 +446,9 @@ const zh: typeof en = {
     subtitle: "最新公司动态与行业资讯",
     footer: "如需了解更多信息，请",
     contactLink: "联系我们",
+    loading: "加载中...",
+    empty: "暂无新闻",
+    notFound: "未找到该新闻",
     items: [
       {
         date: "2024-03-15",

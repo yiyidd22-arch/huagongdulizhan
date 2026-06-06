@@ -11,40 +11,40 @@ export default function ProductsPage() {
 
   return (
     <>
-      <PageBanner
-        title={t.nav.products}
-        subtitle={t.products.pageSubtitle}
-        image="/images/warehouse-drums.png"
-      />
+      <PageBanner title={t.nav.products} subtitle={t.products.pageSubtitle} />
 
-      <section className="py-16 md:py-20">
+      <section className="page-section py-16 md:py-20">
         <div className="mx-auto max-w-7xl px-4">
           <div className="grid gap-8 md:grid-cols-2">
             {t.products.list.map((product) => (
               <Link
                 key={product.slug}
                 href={`/products/${product.slug}`}
-                className="group rounded-xl overflow-hidden shadow-lg border hover:shadow-xl transition-all hover:-translate-y-1"
+                className="group glass-panel overflow-hidden rounded-2xl transition-all duration-300 hover:border-cyan-400/25 hover:shadow-[0_0_32px_rgba(34,211,238,0.08)]"
               >
-                <div className="relative h-64">
-                  <Image
-                    src={productImages[product.slug]}
-                    alt={product.name}
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-300"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                  <div className="absolute bottom-4 left-4 text-white">
-                    <h2 className="text-2xl font-bold">{product.name}</h2>
+                <div className="relative mx-auto aspect-square w-full max-w-xs p-6">
+                  <div className="relative h-full w-full overflow-hidden rounded-xl border border-cyan-500/10">
+                    <Image
+                      src={productImages[product.slug]}
+                      alt={product.name}
+                      fill
+                      className="object-cover opacity-[0.85] transition-all duration-500 group-hover:opacity-100 group-hover:scale-[1.03]"
+                    />
+                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#070d18]/75 via-transparent to-[#070d18]/20" />
                   </div>
                 </div>
-                <div className="p-6 bg-white">
-                  <div className="flex items-center gap-2 text-sm">
-                    <span className="rounded bg-primary/10 px-3 py-1 font-mono text-primary">{product.formula}</span>
-                    <span className="rounded bg-secondary/10 px-3 py-1 text-secondary">{product.standard}</span>
+                <div className="px-6 pb-7">
+                  <h2 className="text-xl font-bold text-white">{product.name}</h2>
+                  <div className="mt-2 flex flex-wrap items-center gap-2 text-sm">
+                    <span className="rounded-full bg-cyan-500/10 px-3 py-1 font-mono text-cyan-400">
+                      {product.formula}
+                    </span>
+                    <span className="rounded-full bg-cyan-500/10 px-3 py-1 text-cyan-400/80">
+                      {product.standard}
+                    </span>
                   </div>
-                  <p className="mt-4 text-gray-600">{product.summary}</p>
-                  <span className="mt-4 inline-block text-primary font-semibold group-hover:underline">
+                  <p className="mt-4 text-sm text-slate-400">{product.summary}</p>
+                  <span className="mt-4 inline-block text-sm font-semibold text-cyan-400 transition-colors group-hover:text-cyan-300">
                     {t.common.viewDetails}
                   </span>
                 </div>

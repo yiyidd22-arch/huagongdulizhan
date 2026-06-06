@@ -1,17 +1,23 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f8fafc;
-  --foreground: #1e293b;
-  --primary: #0056a3;
-  --primary-dark: #003d75;
-  --secondary: #00857c;
-  --accent: #c8102e;
+  --background: #070d18;
+  --foreground: #cbd5e1;
+  --surface: #0c1526;
+  --surface-elevated: #111f35;
+  --primary: #0ea5e9;
+  --primary-dark: #0369a1;
+  --secondary: #22d3ee;
+  --accent: #38bdf8;
+  --glow: rgba(34, 211, 238, 0.45);
+  --border-subtle: rgba(56, 189, 248, 0.12);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-surface-elevated: var(--surface-elevated);
   --color-primary: var(--primary);
   --color-primary-dark: var(--primary-dark);
   --color-secondary: var(--secondary);
@@ -28,4 +34,84 @@ body {
 
 html {
   scroll-behavior: smooth;
+}
+
+.tech-grid {
+  background-image:
+    linear-gradient(rgba(14, 165, 233, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(14, 165, 233, 0.04) 1px, transparent 1px);
+  background-size: 56px 56px;
+}
+
+.tech-glow-line {
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  height: 1px;
+  opacity: 0.5;
+}
+
+.glass-panel {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-subtle);
+  backdrop-filter: blur(12px);
+}
+
+.text-gradient-tech {
+  background: linear-gradient(135deg, #67e8f9 0%, #38bdf8 50%, #818cf8 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.image-glow {
+  box-shadow:
+    0 0 0 1px rgba(56, 189, 248, 0.15),
+    0 8px 32px rgba(0, 0, 0, 0.4),
+    0 0 60px rgba(14, 165, 233, 0.08);
+}
+
+.image-glow:hover {
+  box-shadow:
+    0 0 0 1px rgba(56, 189, 248, 0.35),
+    0 12px 40px rgba(0, 0, 0, 0.5),
+    0 0 80px rgba(34, 211, 238, 0.15);
+}
+
+.image-blend {
+  background: var(--surface);
+}
+
+.page-section {
+  background: var(--background);
+}
+
+.page-section-alt {
+  background: linear-gradient(180deg, var(--surface) 0%, var(--background) 100%);
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.info-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-subtle);
+  border-radius: 0.75rem;
+  padding: 1rem;
+}
+
+.info-card h3 {
+  font-weight: 600;
+  color: #67e8f9;
+  font-size: 0.875rem;
+}
+
+.info-card p {
+  margin-top: 0.25rem;
+  color: #94a3b8;
+  font-size: 0.875rem;
 }
