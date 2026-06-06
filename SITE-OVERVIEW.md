@@ -185,8 +185,32 @@ src/
 
 - 项目配置为 **静态站点导出**（`next.config.ts` → `output: "export"`）
 - 图片使用 `unoptimized: true`（适配静态托管）
-- GitHub Actions 工作流：`.github/workflows/deploy-pages.yml`
 - 开发端口：**4000**
+
+### 7.1 部署架构（2026-06-06 更新）
+
+| 组件 | 说明 |
+|------|------|
+| **托管平台** | Cloudflare Pages（账号：`yiyi.dd22@gmail.com`） |
+| **部署方式** | **Git 集成**：代码推送到 GitHub 后 Cloudflare 自动构建部署 |
+| **GitHub 仓库** | `yiyidd22-arch/huagongdulizhan` |
+| **生产地址** | `https://gaoyuanhaugong.pages.dev` |
+| **构建命令** | `npm run build` → 输出目录 `out/` |
+| **生产分支** | `master` |
+
+### 7.2 新闻与部署的关系
+
+- **网站代码更新**（页面、样式、文案）：`git push` → Cloudflare 自动重新构建上线
+- **新闻内容更新**（后台发布）：**无需重新部署**。新闻页在浏览器中实时请求 `https://gaoyuan.zwstone.cn/api`，发布后即可在独立站看到
+
+### 7.3 相关文档与脚本
+
+| 文件 | 说明 |
+|------|------|
+| `CLOUDFLARE-DEPLOY-GUIDE.md` | Cloudflare 部署完整指南 |
+| `CLOUDFLARE-GITHUB-SETUP.md` | Cloudflare ↔ GitHub 集成过程记录 |
+| `scripts/setup-cloudflare-github.ps1` | 授权后一键配置脚本 |
+| `wrangler.jsonc` | Pages 构建输出目录配置 |
 
 ---
 
@@ -221,4 +245,4 @@ src/
 
 ---
 
-*文档更新日期：2026-06-05*
+*文档更新日期：2026-06-06*

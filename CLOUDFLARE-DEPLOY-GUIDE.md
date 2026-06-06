@@ -1,7 +1,8 @@
 # Cloudflare Pages 独立站部署完整指南
 
-> 本文档说明如何使用 **Cloudflare Pages** 手动创建并部署企业独立站（以本项目「高源化工独立站」为例）。  
-> 适用对象：需要在 Cloudflare 上托管静态网站、希望完全掌控部署节奏的开发/运维人员。
+> 本文档说明如何部署企业独立站「高源化工独立站」到 **Cloudflare Pages**。  
+> **当前主方案（2026-06-06）**：新账号 `yiyi.dd22@gmail.com` + **GitHub Git 集成自动部署**。  
+> 旧 QQ 邮箱账号的 Wrangler 直传方案保留在第六节作参考。
 
 ---
 
@@ -9,12 +10,14 @@
 
 1. [核心概念：什么是 Cloudflare 独立站项目](#一核心概念什么是-cloudflare-独立站项目)
 2. [部署方式总览](#二部署方式总览)
-3. [直传部署完整流程（推荐手动操作）](#三直传部署完整流程推荐手动操作)
-4. [每一步在干什么（详细讲解）](#四每一步在干什么详细讲解)
-5. [直传部署 vs 连接 GitHub 的项目](#五直传部署-vs-连接-github-的项目)
-6. [其他部署方式及优缺点](#六其他部署方式及优缺点)
-7. [日常维护：改完代码怎么重新上线](#七日常维护改完代码怎么重新上线)
-8. [常见问题](#八常见问题)
+3. [Git 集成部署（当前主方案）](#三git-集成部署当前主方案)
+4. [直传部署完整流程（旧方案参考）](#四直传部署完整流程旧方案参考)
+5. [每一步在干什么（详细讲解）](#五每一步在干什么详细讲解)
+6. [直传部署 vs 连接 GitHub 的项目](#六直传部署-vs-连接-github-的项目)
+7. [其他部署方式及优缺点](#七其他部署方式及优缺点)
+8. [日常维护：改完代码怎么重新上线](#八日常维护改完代码怎么重新上线)
+9. [新闻 API 与部署的关系](#九新闻-api-与部署的关系)
+10. [常见问题](#十常见问题)
 
 ---
 
@@ -62,11 +65,79 @@ Cloudflare Pages 主要有三种上线方式：
 | **Git 集成** | 连 GitHub/GitLab | 代码推送到 Git 仓库，Cloudflare 自动拉取、构建、部署 |
 | **CI/CD + Wrangler** | 半自动 | 代码在 GitHub，由 GitHub Actions 构建后用 Wrangler 部署（项目本身仍是直传类型） |
 
-**本项目当前采用的是「Wrangler CLI 直传」**，属于 **Direct Upload（直传部署）** 模式。
+**本项目当前采用的是「Git 集成自动部署」**，代码在 GitHub，推送后由 Cloudflare 云端自动构建。
+
+| 账号信息 | 值 |
+|----------|-----|
+| Cloudflare 邮箱 | `yiyi.dd22@gmail.com` |
+| GitHub 账号 | `yiyidd22-arch` |
+| 仓库 | `yiyidd22-arch/huagongdulizhan` |
+| Pages 项目名 | `gaoyuanhaugong` |
+| 生产地址 | `https://gaoyuanhaugong.pages.dev` |
+
+> 详细连接过程见 **`CLOUDFLARE-GITHUB-SETUP.md`**。一键脚本：`scripts/setup-cloudflare-github.ps1`
 
 ---
 
-## 三、直传部署完整流程（推荐手动操作）
+## 三、Git 集成部署（当前主方案）
+
+### 3.1 前置条件
+
+1. GitHub 仓库 `yiyidd22-arch/huagongdulizhan` 已创建并包含本项目代码
+2. Cloudflare 账号 `yiyi.dd22@gmail.com` 已授权 GitHub App
+3. 本地已安装 Node.js 22、Git、Wrangler（可选，用于验证）
+
+### 3.2 在 Cloudflare Dashboard 创建项目（首次）
+
+1. 打开 [Cloudflare Dashboard](https://dash.cloudflare.com/)，用 **yiyi.dd22@gmail.com** 登录
+2. **Workers & Pages** → **Create application** → **Pages** → **Connect to Git**
+3. 授权 GitHub，选择仓库 `yiyidd22-arch/huagongdulizhan`
+4. 构建配置：
+
+| 配置项 | 值 |
+|--------|-----|
+| Project name | `gaoyuanhaugong` |
+| Production branch | `master` |
+| Framework preset | None |
+| Build command | `npm run build` |
+| Build output directory | `out` |
+
+5. **Save and Deploy** → 等待构建完成 → 访问 `https://gaoyuanhaugong.pages.dev`
+
+### 3.3 仓库中的构建配置
+
+项目已包含以下文件，Cloudflare 构建时会自动识别：
+
+| 文件 | 作用 |
+|------|------|
+| `wrangler.jsonc` | 声明 `pages_build_output_dir: "./out"` |
+| `.node-version` / `.nvmrc` | Node.js 22 |
+| `package.json` → `engines.node` | `>=20` |
+
+### 3.4 日常更新网站
+
+```powershell
+# 修改代码后
+git add .
+git commit -m "更新说明"
+git push origin master
+# Cloudflare 自动构建部署，约 2–5 分钟
+```
+
+可在 Dashboard → **gaoyuanhaugong** → **Deployments** 查看构建日志与回滚。
+
+### 3.5 一键配置脚本（首次授权后）
+
+```powershell
+cd d:\huagongdulizhan
+wrangler login          # 浏览器用 yiyi.dd22@gmail.com 授权
+gh auth login --web     # 浏览器用 yiyidd22-arch 授权
+.\scripts\setup-cloudflare-github.ps1
+```
+
+---
+
+## 四、直传部署完整流程（旧方案参考）
 
 以下是从零到上线的完整步骤，按顺序执行即可。
 
@@ -146,7 +217,7 @@ wrangler pages deployment list --project-name=gaoyuanhaugong
 
 ---
 
-## 四、每一步在干什么（详细讲解）
+## 五、每一步在干什么（详细讲解）
 
 ### 步骤 1：`npm install`
 
@@ -214,13 +285,13 @@ wrangler pages deployment list --project-name=gaoyuanhaugong
 
 ---
 
-## 五、直传部署 vs 连接 GitHub 的项目
+## 六、直传部署 vs 连接 GitHub 的项目
 
 这是最容易混淆的一点，建议仔细看清。
 
 ### 5.1 对比表
 
-| 对比项 | 直传部署（本项目） | Git 集成部署 |
+| 对比项 | 直传部署（旧 QQ 账号） | Git 集成部署（当前） |
 |--------|-------------------|--------------|
 | **创建方式** | Upload assets / Wrangler deploy | Connect to Git（连 GitHub/GitLab） |
 | **代码存放** | 本地电脑 + 你自己管理的 Git（可选） | 必须在 GitHub/GitLab 远程仓库 |
@@ -233,7 +304,7 @@ wrangler pages deployment list --project-name=gaoyuanhaugong
 
 ### 5.2 流程对比图
 
-**直传部署（当前方式）：**
+**直传部署（旧 QQ 账号方案）：**
 
 ```
 本地改代码 → npm run build → 生成 out/ → wrangler deploy → 上线
@@ -241,7 +312,7 @@ wrangler pages deployment list --project-name=gaoyuanhaugong
      └──────────── 每次更新都要重复整条链路 ──────────┘
 ```
 
-**Git 集成部署：**
+**Git 集成部署（当前主方案）：**
 
 ```
 本地改代码 → git push → GitHub 仓库 → Cloudflare 自动拉代码 → 云端 build → 上线
@@ -249,12 +320,12 @@ wrangler pages deployment list --project-name=gaoyuanhaugong
                                     push 一次，其余自动
 ```
 
-### 5.3 关键限制（官方说明）
+### 6.3 关键限制（官方说明）
 
 > **直传项目创建后，无法在同一个项目上改为 Git 集成。**  
-> 若以后要改成 Git 自动部署，需要：删除原 Pages 项目 → 用 Git 集成方式重新创建同名项目。
+> 若要从直传改为 Git 自动部署，需要：删除原 Pages 项目 → 用 Git 集成方式重新创建同名项目。
 
-因此当前 `gaoyuanhaugong` 是直传类型，Dashboard 里 **Git Provider = No** 是正常现象。
+旧 QQ 账号下的 `gaoyuanhaugong` 是直传类型；新 Gmail 账号下已用 **Connect to Git** 重建。
 
 ### 5.4 和「代码放在 GitHub 但用 Actions 部署」的区别
 
@@ -268,9 +339,9 @@ wrangler pages deployment list --project-name=gaoyuanhaugong
 
 ---
 
-## 六、其他部署方式及优缺点
+## 七、其他部署方式及优缺点
 
-### 6.1 Wrangler CLI 直传（当前方式）
+### 7.1 Wrangler CLI 直传（旧方案）
 
 **做法：** `npm run build` → `wrangler pages deploy out`
 
@@ -285,7 +356,7 @@ wrangler pages deployment list --project-name=gaoyuanhaugong
 
 ---
 
-### 6.2 Dashboard 拖拽上传
+### 7.2 Dashboard 拖拽上传
 
 **做法：** Cloudflare 控制台 → 项目 → Create deployment → 拖入 `out/` 文件夹
 
@@ -299,11 +370,11 @@ wrangler pages deployment list --project-name=gaoyuanhaugong
 
 ---
 
-### 6.3 Git 集成（Connect to GitHub / GitLab）
+### 7.3 Git 集成（Connect to GitHub / GitLab）— 当前主方案
 
 **做法：** 创建项目时选 Connect to Git → 授权 → 选仓库 → 配置 build 命令
 
-典型 Cloudflare 构建配置（若用 Git 方式重建本项目）：
+本项目 Cloudflare 构建配置：
 
 | 配置项 | 值 |
 |--------|-----|
@@ -322,7 +393,7 @@ wrangler pages deployment list --project-name=gaoyuanhaugong
 
 ---
 
-### 6.4 GitHub Actions + Wrangler（CI/CD 直传）
+### 7.4 GitHub Actions + Wrangler（备用 CI/CD）
 
 **做法：** 代码在 GitHub，推送触发 Actions → `npm run build` → `wrangler-action` 部署
 
@@ -336,7 +407,7 @@ wrangler pages deployment list --project-name=gaoyuanhaugong
 
 ---
 
-### 6.5 其他平台（了解即可）
+### 7.5 其他平台（了解即可）
 
 | 平台 | 特点 |
 |------|------|
@@ -349,9 +420,25 @@ wrangler pages deployment list --project-name=gaoyuanhaugong
 
 ---
 
-## 七、日常维护：改完代码怎么重新上线
+## 八、日常维护：改完代码怎么重新上线
 
-每次修改网站内容后，执行以下 **固定三步**：
+### Git 集成模式（当前）
+
+```powershell
+cd d:\huagongdulizhan
+git add .
+git commit -m "更新说明"
+git push origin master
+```
+
+| 步骤 | 耗时 | 说明 |
+|------|------|------|
+| push | 数秒 | 推送到 GitHub |
+| Cloudflare 构建 | 约 2–5 分钟 | 云端自动 `npm run build` 并部署 |
+
+可在 Cloudflare Dashboard → **gaoyuanhaugong** → **Deployments** 查看构建日志，必要时回滚。
+
+### 直传模式（旧方案，备用）
 
 ```powershell
 cd d:\huagongdulizhan
@@ -359,16 +446,27 @@ npm run build
 wrangler pages deploy out --project-name=gaoyuanhaugong --branch=master
 ```
 
-| 步骤 | 耗时 | 说明 |
-|------|------|------|
-| build | 约 10–30 秒 | 重新生成 `out/` |
-| deploy | 约 10–20 秒 | 上传变更文件，全球生效 |
+---
 
-可在 Cloudflare Dashboard → **Workers & Pages** → **gaoyuanhaugong** → **Deployments** 查看历史版本，必要时回滚到上一版。
+## 九、新闻 API 与部署的关系
+
+本独立站的新闻数据来自后台管理系统 `https://gaoyuan.zwstone.cn/api`，由 `src/lib/news-api.ts` 在**浏览器端实时拉取**（`cache: "no-store"`）。
+
+| 操作 | 是否需要重新部署 |
+|------|------------------|
+| 在后台发布/编辑新闻 | **否** — 用户刷新新闻页即可看到 |
+| 修改网站页面、样式、组件 | **是** — `git push` 触发 Cloudflare 重建 |
+| 修改新闻 API 地址或逻辑 | **是** — 需改代码并推送 |
+
+验证 API 是否正常：
+
+```powershell
+Invoke-RestMethod "https://gaoyuan.zwstone.cn/api/news/public?limit=3"
+```
 
 ---
 
-## 八、常见问题
+## 十、常见问题
 
 ### Q1：`gaoyuanhaugong.pages.dev` 打开是 404？
 
@@ -380,9 +478,11 @@ wrangler pages deploy out --project-name=gaoyuanhaugong --branch=master
 
 ### Q2：改了代码但线上没变？
 
-**原因：** 只改了源码，没有重新 `build` + `deploy`。
+**原因（Git 集成）：** 只改了本地代码，没有 `git push`；或 Cloudflare 构建失败。
 
-**解决：** 直传模式下，**改代码 ≠ 自动上线**，必须手动走完构建和部署。
+**解决：** 确认已 `git push origin master`，并在 Dashboard → Deployments 查看构建状态。
+
+**原因（直传模式）：** 只改了源码，没有重新 `build` + `deploy`。
 
 ---
 
@@ -406,15 +506,18 @@ wrangler pages deploy out --project-name=gaoyuanhaugong --branch=master
 
 ---
 
-### Q6：想改成 GitHub 自动部署怎么办？
+### Q6：后台发了新闻，独立站没显示？
 
-1. 把代码推到 GitHub 仓库
-2. 在 Cloudflare 授权 GitHub App
-3. **删除**现有直传项目 `gaoyuanhaugong`
-4. 用 **Connect to Git** 重新创建同名项目并关联仓库
-5. 配置 build command=`npm run build`，output=`out`
+**原因：** 新闻 API 请求失败，或文章状态为草稿。
 
-> ⚠️ 删除项目会清空部署历史，操作前请确认。
+**解决：**
+1. 确认文章已在后台**发布**（非草稿）
+2. 浏览器打开独立站 `/news`，F12 → Network 查看对 `gaoyuan.zwstone.cn/api` 的请求
+3. 直接访问 `https://gaoyuan.zwstone.cn/api/news/public?limit=5` 确认有数据
+
+### Q7：从旧 QQ 账号迁移到新 Gmail 账号？
+
+见 **`CLOUDFLARE-GITHUB-SETUP.md`** 完整过程记录。新账号用 Git 集成重建 `gaoyuanhaugong` 项目即可。
 
 ---
 
@@ -424,20 +527,22 @@ wrangler pages deploy out --project-name=gaoyuanhaugong --branch=master
 # 开发
 npm run dev
 
-# 构建
+# 本地构建验证
 npm run build
 
-# 部署到 Cloudflare Pages
-wrangler pages deploy out --project-name=gaoyuanhaugong --branch=master
+# Git 集成部署（当前主方案）
+git add . ; git commit -m "更新" ; git push origin master
 
-# 查看账号
+# 一键配置（首次授权后）
+.\scripts\setup-cloudflare-github.ps1
+
+# 查看 Cloudflare 账号与项目
 wrangler whoami
-
-# 查看项目
 wrangler pages project list
-
-# 查看部署记录
 wrangler pages deployment list --project-name=gaoyuanhaugong
+
+# 直传部署（旧方案备用）
+wrangler pages deploy out --project-name=gaoyuanhaugong --branch=master
 ```
 
 ---
@@ -448,10 +553,13 @@ wrangler pages deployment list --project-name=gaoyuanhaugong
 |------|------|
 | `next.config.ts` | `output: "export"` 开启静态导出；`images.unoptimized` 适配静态托管 |
 | `package.json` | `npm run build` 触发 Next.js 生产构建 |
-| `out/` | 构建产物（部署时上传此目录，已在 `.gitignore` 中忽略） |
-| `.github/workflows/deploy-pages.yml` | 可选的 GitHub Actions 自动部署配置（需配置 API Token） |
+| `wrangler.jsonc` | Cloudflare Pages 构建输出目录 `out` |
+| `out/` | 构建产物（Git 集成时由云端生成，已在 `.gitignore` 中忽略） |
+| `.github/workflows/deploy-pages.yml` | 备用 GitHub Actions 部署（主路径为 Cloudflare 原生 Git 集成） |
+| `scripts/setup-cloudflare-github.ps1` | 授权后一键配置脚本 |
+| `CLOUDFLARE-GITHUB-SETUP.md` | Cloudflare ↔ GitHub 连接过程记录 |
 | `SITE-OVERVIEW.md` | 本站功能与页面结构说明 |
 
 ---
 
-*文档版本：2026-06-05 · 适用于高源化工独立站（huagongdulizhan）Cloudflare Pages 直传部署*
+*文档版本：2026-06-06 · 适用于高源化工独立站（huagongdulizhan）Cloudflare Pages Git 集成部署*
