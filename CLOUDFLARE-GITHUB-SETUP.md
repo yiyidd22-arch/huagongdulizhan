@@ -225,18 +225,45 @@ Invoke-RestMethod "https://gaoyuan.zwstone.cn/api/news/public?limit=5"
 
 ---
 
-## 六、待您完成的最后几步（清单）
+## 六、执行进度（2026-06-06 全部完成）
 
-请按顺序完成（每项约 1–2 分钟）：
+| 步骤 | 状态 | 说明 |
+|------|------|------|
+| Cloudflare 登录 | ✅ 完成 | `yiyi.dd22@gmail.com`，Account ID: `e0e23fd4fbf15a772917cdf9489e6c83` |
+| GitHub 代码推送 | ✅ 完成 | 仓库 https://github.com/yiyidd22-arch/huagongdulizhan ，分支 `master` |
+| GitHub App 授权 | ✅ 完成 | Cloudflare 已连接 GitHub |
+| Git 集成项目创建 | ✅ 完成 | 项目名 `huagongdulizhan`，Git Provider = Yes |
+| 删除旧直传项目 | ✅ 完成 | 已删除 `gaoyuanhaugong`（原 `gaoyuanhaugong-332.pages.dev`） |
+| 首次 Git 构建部署 | ✅ 完成 | 生产分支 `master`，commit `c0408c8` |
 
-- [ ] **1.** 终端执行 `wrangler login`，浏览器用 **yiyi.dd22@gmail.com** 授权
-- [ ] **2.** 终端执行 `gh auth login --web`，浏览器用 **yiyidd22-arch** GitHub 授权
-- [ ] **3.** 执行 `.\scripts\setup-cloudflare-github.ps1`（或按步骤 7–8 手动操作）
-- [ ] **4.** 在 Cloudflare Dashboard 确认首次部署 **Success**
-- [ ] **5.** 打开 https://gaoyuanhaugong.pages.dev 检查首页、新闻页
-- [ ] **6.** 在后台发一条测试新闻，刷新独立站新闻页验证即时显示
+### 当前生产地址
 
-完成后可将本清单项全部勾选，并在下方记录实际 Account ID 与部署 URL。
+- **主站（Git 自动部署）**：https://huagongdulizhan.pages.dev
+- **GitHub 仓库**：https://github.com/yiyidd22-arch/huagongdulizhan
+
+以后更新网站：本地改代码 → `git push origin master` → Cloudflare 自动构建部署（约 2–5 分钟）。
+
+---
+
+## 七、如何删除直传项目（参考，已完成）
+
+若以后需要删除某个 Pages 项目，有两种方式：
+
+**方式 A — 命令行（推荐）**
+
+```powershell
+wrangler pages project delete 项目名 --yes
+```
+
+**方式 B — Cloudflare 控制台**
+
+1. 打开 https://dash.cloudflare.com/ → **Workers & Pages**
+2. 点击要删除的项目（如 `gaoyuanhaugong`）
+3. 顶部或左侧进入 **Settings**（设置）
+4. 滚动到页面最底部 **Delete Project**（删除项目）
+5. 输入项目名确认 → 点击 **Delete**
+
+> 直传项目（Git Provider = No）无法用 Git 集成，只能删除后重建。
 
 ---
 
