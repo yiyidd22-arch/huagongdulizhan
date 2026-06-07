@@ -107,11 +107,40 @@ const en = {
       standard: "Standard",
       standardValue:
         "Meets national chemical industry standard HG3250-2010. Gaoyuan Chemical is a drafting unit of this national standard.",
+      properties: "Product Properties",
+      propertiesValue:
+        "Solid sodium chlorite is white alkaline crystal powder or particle, some slightly mixed with yellowish-green crystal, a little moisture absorptive. It is easily soluble in water and alcohol. Powdery sodium chlorite is stable at room temperature and in normal storage conditions, stability larger than sodium hypochlorite while smaller than sodium chlorate. Heated above 170℃, the solid and alkaline solution will dissociate into sodium chlorate and sodium hypochlorite. With acid, it easily dissociates, releasing chlorine dioxide gas. When contact, impact or friction with wood shavings, organic matters or reductive materials, it easily explodes or combusts and becomes toxic!",
+      specsTitle: "Technical Specifications",
+      indicatorCol: "Item",
+      gradeCols: ["Solid Type I", "Solid Type II", "Liquid"],
+      specs: [
+        { name: "Sodium Chlorite (NaClO₂) %", values: ["≥80.0", "≥90.0", "≥25.0 & ≥31.0"] },
+        { name: "Sodium Chlorate (NaClO₃) % ≤", values: ["1.2", "0.9", "0.7"] },
+        { name: "Sodium Hydroxide (NaOH) % ≤", values: ["0.6", "0.4", "0.3"] },
+        { name: "Sodium Carbonate (Na₂CO₃) % ≤", values: ["0.9", "0.5", "0.4"] },
+        { name: "Sodium Sulfate (Na₂SO₄) % ≤", values: ["0.8", "0.5", "0.3"] },
+        { name: "Sodium Chloride (NaCl) % ≤", values: ["17", "7.0", "1.2"] },
+        { name: "Sodium Nitrate (NaNO₃) % ≤", values: ["0.1", "0.1", "0.1"] },
+        { name: "Arsenic (As) % ≤", values: ["0.0003", "0.0003", "0.0003"] },
+        { name: "Lead (Pb) % ≤", values: ["0.0001", "0.0001", "0.0001"] },
+        { name: "Mercury (Hg) % ≤", values: ["0.00001", "0.00001", "0.00001"] },
+      ],
+      applications: "Product Purpose",
+      applicationsValue:
+        "It is mainly applied to make chlorine dioxide, bleaching fiber, fabric, oil and pulp, as well as metallic surface treatment and water sterilization.",
+      packaging: "Package and Mark",
+      packagingValue:
+        "Solid sodium chlorite for industrial use is packed with metal bucket lined with plastic bag, each bucket net weighted 50kg. Liquid sodium chlorite is packed with PVC plastic bucket, each bucket net weighted 25kg. Package and weight may be customized according to user demands. The package should be clearly labeled with mark covering manufacturer name, address, product name, trademark, net weight, batch No. or production date, standard number and symbol of \"oxidizing agent\".",
+      transport: "Transportation & Storage",
+      transportValue:
+        "Sodium chlorite for industrial use must not be transported with acid or reductive materials; it must be stored at cool and dry place far from fire source and heat source, and not be stored with acid or reductive materials. In case of fire, fight the fire with water, sand or various fire extinguishers.",
+      safety: "Toxicity and Preventive Measures",
+      safetyValue:
+        "Powdery sodium chlorite stimulates respiratory tract, mucosa, eyes and skin. Eyes or skin accidentally splashed with the solution must be washed with water immediately. If taken by mistake, you must immediately drink saline solution or warm soapy water to vomit the material and seek treatment in hospital. 10g may be fatal.",
+      imgDomestic: "Powdery sodium chlorite (domestic packaging)",
+      imgExport: "Powdery sodium chlorite (export packaging)",
       ctaTitle: "YINZHOU Brand — Exported to 40+ Countries",
       ctaDesc: "Annual export volume accounts for 70% of total output, ranking first in the industry.",
-      altDrums: "Sodium chlorite drums",
-      altLiquid: "Liquid sodium chlorite storage",
-      altEquipment: "Production equipment",
     },
     chlorate: {
       subtitle: "Industrial sodium chlorate (NaClO₃) — GB/T1618-2008",
@@ -122,6 +151,9 @@ const en = {
       appearance: "Appearance",
       appearanceValue:
         "White or slightly mixed with yellow crystal, meeting national chemical industry standard GB/T1618-2008.",
+      standard: "Standard",
+      standardValue:
+        "Meets national chemical industry standard GB/T1618-2008.",
       properties: "Properties",
       propertiesValue:
         "Usually white or slightly yellow isometric crystals. Salty and cool taste, easily soluble in water, slightly soluble in ethanol, ethylenediamine, glycerol and liquid ammonia. Hygroscopic with strong oxidizing power. Decomposes above 300°C releasing oxygen. Mixing with phosphorus, sulfur and organic matter can cause combustion and explosion upon friction or impact. Toxic!",
@@ -146,6 +178,8 @@ const en = {
       safety: "Safety & Protection",
       safetyValue:
         "Sodium chlorate dust can irritate skin, mucous membranes and eyes. If splashed into eyes or on skin, rinse immediately with plenty of water. If ingested, drink salt water or warm soapy water to induce vomiting and seek medical treatment immediately. Lethal dose: 10g.",
+      imgDomestic: "Powdery sodium chlorate (domestic packaging)",
+      imgExport: "Powdery sodium chlorate (export packaging)",
     },
   },
   about: {
@@ -359,11 +393,40 @@ const zh: typeof en = {
         "产品分为固体和液体两种。固体产品为白色或微带黄绿色结晶粉末或颗粒；液体产品为浅黄色透明溶液。",
       standard: "标准",
       standardValue: "符合国家化工行业标准 HG3250-2010 标准。高源化工为该国家标准起草单位。",
+      properties: "产品性质",
+      propertiesValue:
+        "固体亚氯酸钠系白色或微带黄绿色结晶，呈碱性，轻微吸潮。易溶于水、醇。粉末状亚氯酸钠在室温和正常储存条件下较稳定，其稳定性大于次氯酸钠，小于氯酸钠，固体和碱性水溶液加热到170℃以上时，分解成氯酸钠和次氯酸钠，遇酸易分解放出二氧化氯气体。与木屑、有机物、还原性物质接触、撞击、磨擦时容易爆炸或燃烧，有毒！",
+      specsTitle: "技术指标",
+      indicatorCol: "检测项目",
+      gradeCols: ["固体Ⅰ型", "固体Ⅱ型", "液体"],
+      specs: [
+        { name: "亚氯酸钠 (NaClO₂) %", values: ["≥80.0", "≥90.0", "≥25.0 & ≥31.0"] },
+        { name: "氯酸钠 (NaClO₃) % ≤", values: ["1.2", "0.9", "0.7"] },
+        { name: "氢氧化钠 (NaOH) % ≤", values: ["0.6", "0.4", "0.3"] },
+        { name: "碳酸钠 (Na₂CO₃) % ≤", values: ["0.9", "0.5", "0.4"] },
+        { name: "硫酸钠 (Na₂SO₄) % ≤", values: ["0.8", "0.5", "0.3"] },
+        { name: "氯化钠 (NaCl) % ≤", values: ["17", "7.0", "1.2"] },
+        { name: "硝酸钠 (NaNO₃) % ≤", values: ["0.1", "0.1", "0.1"] },
+        { name: "砷 (As) % ≤", values: ["0.0003", "0.0003", "0.0003"] },
+        { name: "铅 (Pb) % ≤", values: ["0.0001", "0.0001", "0.0001"] },
+        { name: "汞 (Hg) % ≤", values: ["0.00001", "0.00001", "0.00001"] },
+      ],
+      applications: "产品用途",
+      applicationsValue:
+        "该产品主要用于制造二氧化氯，也用于纤维、织物、油类、纸浆等的漂白，某些金属表面处理及水质杀菌等。",
+      packaging: "包装及标志",
+      packagingValue:
+        "工业亚氯酸钠固体采用内衬塑料袋的铁桶包装，每桶净重50kg。液体采用聚氯乙烯塑料桶包装，每桶净重25kg。包装及含量可根据用户要求加工生产。包装容器上应用清晰的标志，内容包括：生产厂名、厂址、产品名称、商标、净含量、批号或生产日期、本标准编号及「氧化剂」标志。",
+      transport: "储运注意事项",
+      transportValue:
+        "工业亚氯酸钠在运输过程中不得与酸、还原性物质混运；应贮存在阴凉干燥处，远离火源、热源，不得与酸、还原性物质混贮。失火时可用水、砂土、各种灭火器扑救。",
+      safety: "毒性及防护措施",
+      safetyValue:
+        "本品粉尘对呼吸器官、粘膜、眼睛和皮肤有刺激作用，其溶液不慎溅入眼睛或皮肤上，应立即用水冲洗干净，误食后应立即饮用食盐水或温肥皂水，使其吐出后送医院治疗，致死量10克。",
+      imgDomestic: "粉状亚氯酸钠（国内包装）",
+      imgExport: "粉状亚氯酸钠（出口包装）",
       ctaTitle: "银州品牌 — 出口40余国",
       ctaDesc: "年出口量达总产量70%，位居同行业首位。",
-      altDrums: "亚氯酸钠包装桶",
-      altLiquid: "液体亚氯酸钠储存",
-      altEquipment: "生产设备",
     },
     chlorate: {
       subtitle: "工业氯酸钠（NaClO₃）— GB/T1618-2008",
@@ -373,6 +436,8 @@ const zh: typeof en = {
       molecularWeight: "分子量",
       appearance: "外观",
       appearanceValue: "白色或略带黄色晶体，符合国家化工行业标准 GB/T1618-2008。",
+      standard: "标准",
+      standardValue: "符合国家化工行业标准 GB/T1618-2008。",
       properties: "产品性质",
       propertiesValue:
         "通常是白色或者微黄色等轴晶体。味咸凉，易溶于水，微溶于乙醇、乙二胺、甘油和液氨，易吸潮，有较强的氧化力。加热至300℃以上易分解放出氧气。与磷、硫及有机物混合，只需摩擦或撞击即可发生燃烧和爆炸。有毒！",
@@ -397,6 +462,8 @@ const zh: typeof en = {
       safety: "毒性和防护措施",
       safetyValue:
         "氯酸钠粉尘能刺激皮肤、粘膜和眼睛，如不慎溅入眼睛或皮肤上，应立即用大量水冲洗干净。误食时要立即饮用食盐水或温肥皂水，使其吐出后送医院治疗，致死量10克。",
+      imgDomestic: "粉状氯酸钠（国内包装）",
+      imgExport: "粉状氯酸钠（出口包装）",
     },
   },
   about: {
@@ -512,7 +579,7 @@ export const certificateImages = [
 ];
 
 export const productImages: Record<string, string> = {
-  "sodium-chlorite": "/images/warehouse-drums.png",
+  "sodium-chlorite": "/images/sodium-chlorite-domestic.png",
   "sodium-chlorate": "/images/liquid-storage.png",
 };
 

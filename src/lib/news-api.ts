@@ -1,17 +1,10 @@
-/** 每次请求时解析 API 地址，确保浏览器端本地开发走正确路径 */
+const PRODUCTION_API = "https://gaoyuan.zwstone.cn/api";
+
+/** 每次请求时解析 API 地址；默认直连生产 API，本地 CMS 调试时设 NEXT_PUBLIC_NEWS_API_URL=/backend-api */
 export function getNewsApiBase(): string {
   const fromEnv = process.env.NEXT_PUBLIC_NEWS_API_URL?.trim();
   if (fromEnv) return fromEnv.replace(/\/$/, "");
-
-  if (typeof window !== "undefined") {
-    const { hostname } = window.location;
-    if (hostname === "localhost" || hostname === "127.0.0.1") {
-      // 本地 dev 走 Next 代理 → 管理系统 localhost:3000
-      return "/backend-api";
-    }
-  }
-
-  return "https://gaoyuan.zwstone.cn/api";
+  return PRODUCTION_API;
 }
 
 export interface NewsArticle {

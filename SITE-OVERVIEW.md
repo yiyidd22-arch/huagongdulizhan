@@ -104,6 +104,8 @@
 - 去除白色内容框，改用 `.glass-panel` 深色玻璃卡片
 - 产品图为 **正方形**，带柔和暗角渐变
 - 产品详情页参数块使用 `.info-card`，表格/CTA 均为深色风格
+- **亚氯酸钠详情页**（`/products/sodium-chlorite`）：含产品性质、用途、包装标志、储运注意事项、毒性防护及三列技术指标表（固体Ⅰ型 / 固体Ⅱ型 / 液体）；展示国内包装与出口包装两张产品实拍图
+- 亚氯酸钠列表/首页展示图：`sodium-chlorite-domestic.png`（粉状亚氯酸钠国内包装）
 
 ### 3.8 新闻中心 & 联系我们
 
@@ -174,7 +176,9 @@ src/
 
 - `factory-entrance.png` — 首页 Hero / 内页 Banner
 - `factory-building.png` — 厂区建筑
-- `warehouse-drums.png` — 亚氯酸钠产品
+- `sodium-chlorite-domestic.png` — 亚氯酸钠（国内包装，首页/产品列表展示图）
+- `sodium-chlorite-export.png` — 亚氯酸钠（出口包装，详情页展示）
+- `warehouse-drums.png` — 仓库桶装（其他用途）
 - `liquid-storage.png` — 氯酸钠 / 液体储罐
 - `equipment-pumps.png`、`production-line.png` — 设备展示
 - 各类证书扫描图
@@ -245,4 +249,4 @@ src/
 
 ---
 
-*文档更新日期：2026-06-06*
+*文档更新日期：2026-06-07*

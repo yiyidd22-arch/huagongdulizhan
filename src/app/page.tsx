@@ -2,13 +2,14 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import FloatingPhoneButton from "@/components/FloatingPhoneButton";
 import ProductCard from "@/components/ProductCard";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { certificateImages } from "@/lib/i18n/translations";
+import { certificateImages, productImages } from "@/lib/i18n/translations";
 
-const productImages = [
-  "/images/warehouse-drums.png",
-  "/images/liquid-storage.png",
+const homeProductImages = [
+  productImages["sodium-chlorite"],
+  productImages["sodium-chlorate"],
 ];
 
 export default function HomePage() {
@@ -112,18 +113,31 @@ export default function HomePage() {
             <h2 className="text-2xl font-bold text-white md:text-3xl">{t.home.productsTitle}</h2>
             <div className="tech-glow-line mx-auto mt-4 w-16" />
           </div>
-          <div className="grid gap-8 md:grid-cols-2">
-            {t.products.list.map((product, i) => (
-              <ProductCard
-                key={product.slug}
-                href={`/products/${product.slug}`}
-                name={product.name}
-                formula={product.formula}
-                standard={product.standard}
-                summary={product.summary}
-                image={productImages[i]}
-              />
-            ))}
+          <div className="grid gap-6 lg:grid-cols-2 lg:gap-8">
+            {t.products.list.map((product, i) => {
+              const detail = i === 0 ? t.products.chlorite : t.products.chlorate;
+              const weight = i === 0 ? "90.45" : "106.44";
+              return (
+                <ProductCard
+                  key={product.slug}
+                  href={`/products/${product.slug}`}
+                  name={product.name}
+                  formula={product.formula}
+                  image={homeProductImages[i]}
+                  chemicalName={detail.chemicalName}
+                  chemicalValue={detail.chemicalValue}
+                  molecularWeightLabel={detail.molecularWeight}
+                  molecularWeightValue={weight}
+                  appearance={detail.appearance}
+                  appearanceValue={detail.appearanceValue}
+                  standard={detail.standard}
+                  standardValue={detail.standardValue}
+                  properties={detail.properties}
+                  propertiesValue={detail.propertiesValue}
+                  viewDetails={t.common.viewDetails}
+                />
+              );
+            })}
           </div>
         </div>
       </section>
@@ -229,6 +243,8 @@ export default function HomePage() {
           </Link>
         </div>
       </section>
+
+      <FloatingPhoneButton />
     </div>
   );
 }

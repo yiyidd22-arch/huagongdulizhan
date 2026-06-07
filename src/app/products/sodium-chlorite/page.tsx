@@ -1,8 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import BlendedImage from "@/components/BlendedImage";
 import PageBanner from "@/components/PageBanner";
+import ProductPackagingImages from "@/components/ProductPackagingImages";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function SodiumChloritePage() {
@@ -15,9 +15,12 @@ export default function SodiumChloritePage() {
 
       <section className="page-section py-16 md:py-20">
         <div className="mx-auto max-w-7xl px-4">
-          <div className="grid gap-10 lg:grid-cols-2">
-            <BlendedImage src="/images/warehouse-drums.png" alt={p.altDrums} aspectClass="aspect-square min-h-[320px]" />
+          <ProductPackagingImages
+            domesticLabel={p.imgDomestic}
+            exportLabel={p.imgExport}
+          />
 
+          <div className="mt-12 grid gap-10 lg:grid-cols-2">
             <div>
               <h2 className="text-2xl font-bold text-white">{p.infoTitle}</h2>
               <div className="tech-glow-line mt-4 w-16" />
@@ -26,7 +29,6 @@ export default function SodiumChloritePage() {
                   { label: p.chemicalName, value: p.chemicalValue },
                   { label: p.molecularWeight, value: "90.45" },
                   { label: p.appearance, value: p.appearanceValue },
-                  { label: p.standard, value: p.standardValue },
                 ].map((item) => (
                   <div key={item.label} className="info-card">
                     <h3>{item.label}</h3>
@@ -34,20 +36,75 @@ export default function SodiumChloritePage() {
                   </div>
                 ))}
               </div>
+
+              <div className="mt-8">
+                <h3 className="text-lg font-bold text-cyan-400">{p.properties}</h3>
+                <p className="mt-3 text-sm leading-relaxed text-slate-400">{p.propertiesValue}</p>
+              </div>
+            </div>
+
+            <div>
+              <h3 className="text-lg font-bold text-cyan-400">{p.specsTitle}</h3>
+              <div className="mt-4 overflow-x-auto rounded-xl border border-cyan-500/15">
+                <table className="w-full min-w-[560px] text-sm">
+                  <thead className="bg-cyan-500/10 text-cyan-400">
+                    <tr>
+                      <th className="px-4 py-3 text-left">{p.indicatorCol}</th>
+                      {p.gradeCols.map((col) => (
+                        <th key={col} className="px-4 py-3 text-right">
+                          {col}
+                        </th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {p.specs.map((spec, i) => (
+                      <tr
+                        key={spec.name}
+                        className={i % 2 === 0 ? "bg-white/[0.02]" : "bg-white/[0.04]"}
+                      >
+                        <td className="px-4 py-3 text-slate-400">{spec.name}</td>
+                        {spec.values.map((val, j) => (
+                          <td
+                            key={`${spec.name}-${j}`}
+                            className="px-4 py-3 text-right font-mono font-semibold text-cyan-400"
+                          >
+                            {val}
+                          </td>
+                        ))}
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
 
-          <div className="mt-16 grid gap-6 md:grid-cols-2">
-            <BlendedImage src="/images/liquid-storage.png" alt={p.altLiquid} />
-            <BlendedImage src="/images/equipment-pumps.png" alt={p.altEquipment} />
+          <div className="mt-16 grid gap-8 md:grid-cols-2">
+            <div>
+              <h3 className="text-lg font-bold text-cyan-400">{p.applications}</h3>
+              <p className="mt-3 text-sm leading-relaxed text-slate-400">{p.applicationsValue}</p>
+            </div>
+            <div>
+              <h3 className="text-lg font-bold text-cyan-400">{p.packaging}</h3>
+              <p className="mt-3 text-sm leading-relaxed text-slate-400">{p.packagingValue}</p>
+            </div>
           </div>
 
-          <div className="mt-12 rounded-2xl border border-cyan-500/20 bg-gradient-to-br from-cyan-950/40 to-[#0c1526] p-8 text-center">
-            <h3 className="text-xl font-bold text-white">{p.ctaTitle}</h3>
-            <p className="mt-2 text-slate-400">{p.ctaDesc}</p>
+          <div className="mt-8">
+            <h3 className="text-lg font-bold text-cyan-400">{p.transport}</h3>
+            <p className="mt-3 text-sm leading-relaxed text-slate-400">{p.transportValue}</p>
+          </div>
+
+          <div className="mt-8 rounded-xl border border-amber-500/20 bg-amber-500/5 p-6">
+            <h3 className="text-lg font-bold text-amber-400">{p.safety}</h3>
+            <p className="mt-3 text-sm leading-relaxed text-amber-200/70">{p.safetyValue}</p>
+          </div>
+
+          <div className="mt-12 text-center">
             <Link
               href="/contact"
-              className="mt-6 inline-block rounded-full border border-cyan-400/50 bg-cyan-500/10 px-8 py-3 font-semibold text-cyan-300 transition-all hover:bg-cyan-400/20"
+              className="inline-block rounded-full border border-cyan-400/50 bg-cyan-500/10 px-8 py-3 font-semibold text-cyan-300 transition-all hover:bg-cyan-400/20"
             >
               {t.common.inquireNow}
             </Link>

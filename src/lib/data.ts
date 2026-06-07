@@ -82,7 +82,7 @@ export const products = [
     nameCn: "亚氯酸钠",
     formula: "NaClO₂",
     standard: "HG3250-2010",
-    image: "/images/warehouse-drums.png",
+    image: "/images/sodium-chlorite-domestic.png",
     summary: "Solid and liquid types available. National standard drafter. Exported to 40+ countries.",
     summaryCn: "固体、液体两种规格。国家标准起草单位，出口40余国。",
   },
