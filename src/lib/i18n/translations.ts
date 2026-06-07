@@ -16,6 +16,9 @@ const en = {
     inquireNow: "Inquire Now",
     getInTouch: "Get in Touch",
     sendMessage: "Send Message",
+    submitting: "Sending...",
+    submitSuccess: "Thank you! Your inquiry has been submitted. We will contact you shortly.",
+    submitError: "Submission failed. Please try again later.",
     allRightsReserved: "All rights reserved.",
   },
   company: {
@@ -266,6 +269,9 @@ const zh: typeof en = {
     inquireNow: "立即询价",
     getInTouch: "联系我们",
     sendMessage: "发送留言",
+    submitting: "提交中...",
+    submitSuccess: "提交成功！我们将尽快与您联系。",
+    submitError: "提交失败，请稍后重试。",
     allRightsReserved: "版权所有",
   },
   company: {

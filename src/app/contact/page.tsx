@@ -1,11 +1,41 @@
 "use client";
 
+import { FormEvent, useState } from "react";
 import PageBanner from "@/components/PageBanner";
 import { company } from "@/lib/data";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { submitConsultation } from "@/lib/consultation-api";
 
 export default function ContactPage() {
   const { t } = useLanguage();
+  const [submitting, setSubmitting] = useState(false);
+  const [feedback, setFeedback] = useState<{ type: "success" | "error"; text: string } | null>(null);
+
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setFeedback(null);
+    setSubmitting(true);
+
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+
+    const result = await submitConsultation({
+      name: String(formData.get("name") || "").trim(),
+      email: String(formData.get("email") || "").trim(),
+      company: String(formData.get("company") || "").trim() || undefined,
+      product: String(formData.get("product") || "").trim() || undefined,
+      message: String(formData.get("message") || "").trim(),
+    });
+
+    setSubmitting(false);
+
+    if (result.success) {
+      setFeedback({ type: "success", text: t.common.submitSuccess });
+      form.reset();
+    } else {
+      setFeedback({ type: "error", text: result.message || t.common.submitError });
+    }
+  }
 
   return (
     <>
@@ -84,7 +114,20 @@ export default function ContactPage() {
             <div className="glass-panel rounded-2xl p-8">
               <h2 className="text-xl font-bold text-white">{t.contact.formTitle}</h2>
               <p className="mt-1 text-sm text-slate-500">{t.contact.formDesc}</p>
-              <form className="mt-6 space-y-4" action={`mailto:${company.email}`} method="post" encType="text/plain">
+
+              {feedback && (
+                <div
+                  className={`mt-4 rounded-lg px-4 py-3 text-sm ${
+                    feedback.type === "success"
+                      ? "border border-emerald-500/30 bg-emerald-500/10 text-emerald-300"
+                      : "border border-red-500/30 bg-red-500/10 text-red-300"
+                  }`}
+                >
+                  {feedback.text}
+                </div>
+              )}
+
+              <form className="mt-6 space-y-4" onSubmit={handleSubmit}>
                 {[
                   { id: "name", label: t.contact.name, type: "text", required: true },
                   { id: "email", label: t.contact.email, type: "email", required: true },
@@ -99,7 +142,8 @@ export default function ContactPage() {
                       id={field.id}
                       name={field.id.replace("-field", "")}
                       required={field.required}
-                      className="mt-1 w-full rounded-lg border border-cyan-500/15 bg-white/5 px-4 py-2.5 text-slate-200 outline-none focus:border-cyan-400/40 focus:ring-1 focus:ring-cyan-400/30"
+                      disabled={submitting}
+                      className="mt-1 w-full rounded-lg border border-cyan-500/15 bg-white/5 px-4 py-2.5 text-slate-200 outline-none focus:border-cyan-400/40 focus:ring-1 focus:ring-cyan-400/30 disabled:opacity-60"
                     />
                   </div>
                 ))}
@@ -110,7 +154,8 @@ export default function ContactPage() {
                   <select
                     id="product"
                     name="product"
-                    className="mt-1 w-full rounded-lg border border-cyan-500/15 bg-white/5 px-4 py-2.5 text-slate-200 outline-none focus:border-cyan-400/40"
+                    disabled={submitting}
+                    className="mt-1 w-full rounded-lg border border-cyan-500/15 bg-white/5 px-4 py-2.5 text-slate-200 outline-none focus:border-cyan-400/40 disabled:opacity-60"
                   >
                     <option value="sodium-chlorite">{t.contact.productOptions.chlorite}</option>
                     <option value="sodium-chlorate">{t.contact.productOptions.chlorate}</option>
@@ -126,14 +171,16 @@ export default function ContactPage() {
                     name="message"
                     rows={4}
                     required
-                    className="mt-1 w-full resize-none rounded-lg border border-cyan-500/15 bg-white/5 px-4 py-2.5 text-slate-200 outline-none focus:border-cyan-400/40 focus:ring-1 focus:ring-cyan-400/30"
+                    disabled={submitting}
+                    className="mt-1 w-full resize-none rounded-lg border border-cyan-500/15 bg-white/5 px-4 py-2.5 text-slate-200 outline-none focus:border-cyan-400/40 focus:ring-1 focus:ring-cyan-400/30 disabled:opacity-60"
                   />
                 </div>
                 <button
                   type="submit"
-                  className="w-full rounded-full bg-cyan-500/90 py-3 font-semibold text-[#070d18] transition-colors hover:bg-cyan-400"
+                  disabled={submitting}
+                  className="w-full rounded-full bg-cyan-500/90 py-3 font-semibold text-[#070d18] transition-colors hover:bg-cyan-400 disabled:cursor-not-allowed disabled:opacity-60"
                 >
-                  {t.common.sendMessage}
+                  {submitting ? t.common.submitting : t.common.sendMessage}
                 </button>
               </form>
             </div>
