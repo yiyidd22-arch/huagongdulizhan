@@ -1,0 +1,15 @@
+{
+  "$schema": "../../node_modules/wrangler/config-schema.json",
+  "name": "gaoyuan-news-sync",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-06-06",
+  "r2_buckets": [
+    {
+      "binding": "NEWS_BUCKET",
+      "bucket_name": "gaoyuan-news"
+    }
+  ],
+  "vars": {
+    "NEWS_CMS_API": "https://gaoyuan.zwstone.cn/api"
+  }
+}

@@ -11,6 +11,7 @@
     "start": "next start -p 4000",
     "lint": "eslint",
     "sync:news": "node scripts/sync-news-to-r2.mjs",
+    "sync:worker:deploy": "wrangler deploy --config workers/news-sync/wrangler.jsonc",
     "pages:dev": "npm run build && wrangler pages dev out --port 8788",
     "pages:deploy": "npm run build && wrangler pages deploy out --project-name=huagongdulizhan --branch=master"
   },
