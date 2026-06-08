@@ -35,7 +35,10 @@ export const onRequest: PagesFunction<Env> = async (context) => {
   const headers = new Headers();
   object.writeHttpMetadata(headers);
   headers.set("Content-Type", contentType(key));
-  headers.set("Cache-Control", "public, max-age=60, s-maxage=60");
+  headers.set(
+    "Cache-Control",
+    key.startsWith("images/") ? "public, max-age=31536000, immutable" : "public, max-age=60, s-maxage=60",
+  );
   headers.set("Access-Control-Allow-Origin", "*");
 
   return new Response(object.body, { headers });

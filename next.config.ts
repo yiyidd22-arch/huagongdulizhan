@@ -11,10 +11,15 @@ const nextConfig: NextConfig = {
     const backend =
       process.env.NEWS_BACKEND_URL?.replace(/\/$/, "") ||
       "http://localhost:3000/api";
+    const backendOrigin = backend.replace(/\/api\/?$/, "");
     return [
       {
         source: "/backend-api/:path*",
         destination: `${backend}/:path*`,
+      },
+      {
+        source: "/uploads/:path*",
+        destination: `${backendOrigin}/uploads/:path*`,
       },
     ];
   },
