@@ -23,6 +23,9 @@
 # misc
 .DS_Store
 *.pem
+.news-sync/
+public/news-data/*
+!public/news-data/.gitkeep
 
 # debug
 npm-debug.log*

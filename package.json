@@ -7,9 +7,12 @@
   },
   "scripts": {
     "dev": "next dev -p 4000",
-    "build": "next build",
+    "build": "next build && node scripts/prune-news-static-out.mjs",
     "start": "next start -p 4000",
-    "lint": "eslint"
+    "lint": "eslint",
+    "sync:news": "node scripts/sync-news-to-r2.mjs",
+    "pages:dev": "npm run build && wrangler pages dev out --port 8788",
+    "pages:deploy": "npm run build && wrangler pages deploy out --project-name=huagongdulizhan --branch=master"
   },
   "dependencies": {
     "next": "16.2.7",

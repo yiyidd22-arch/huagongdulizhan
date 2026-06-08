@@ -1,0 +1,2 @@
+# 本地 sync:news 生成的 JSON，生产环境从 R2 读取
+public/news-data/
