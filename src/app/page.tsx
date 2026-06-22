@@ -17,8 +17,8 @@ export default function HomePage() {
 
   return (
     <div className="tech-grid">
-      {/* Hero — full viewport, blends into dark below */}
-      <section className="relative min-h-screen overflow-hidden">
+      {/* Hero — full viewport; -mt pulls image under transparent header */}
+      <section className="relative -mt-[72px] min-h-screen overflow-hidden">
         <Image
           src="/images/factory-entrance.png"
           alt={t.home.altFactory}
@@ -26,10 +26,10 @@ export default function HomePage() {
           className="object-cover"
           priority
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-[#070d18]/60 to-[#070d18]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-[#070d18]/50 to-[#070d18]" />
         <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#070d18] to-transparent" />
 
-        <div className="relative mx-auto flex min-h-screen max-w-7xl flex-col justify-center px-4 pt-20 pb-24">
+        <div className="relative mx-auto flex min-h-screen max-w-7xl flex-col justify-center px-4 pt-[72px] pb-24">
           <p className="mb-3 text-sm font-medium tracking-widest text-cyan-400/90 uppercase md:text-base">
             {t.home.heroTag}
           </p>
